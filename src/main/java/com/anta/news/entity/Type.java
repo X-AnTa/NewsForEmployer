@@ -1,6 +1,7 @@
 package com.anta.news.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "type")
@@ -16,6 +17,15 @@ public class Type {
 
     @Column(name = "type_color")
     private String type_color;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(
+            name = "news_types",
+            joinColumns = @JoinColumn(name = "type_id"),
+            inverseJoinColumns = @JoinColumn(name = "news_id")
+
+    )
+    private Set<Type> news;
 
     public Type() {
     }

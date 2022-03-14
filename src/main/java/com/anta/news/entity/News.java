@@ -2,6 +2,7 @@ package com.anta.news.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "news")
@@ -21,6 +22,15 @@ public class News {
 
     @Column(name = "description")
     private String description;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(
+            name = "news_types",
+            joinColumns = @JoinColumn(name = "news_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id")
+
+    )
+    private Set<Type> types;
 
     public News() {
     }
