@@ -73,6 +73,14 @@ public class News {
         this.description = description;
     }
 
+    public Set<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Set<Type> types) {
+        this.types = types;
+    }
+
     @Override
     public String toString() {
         return "News{" +

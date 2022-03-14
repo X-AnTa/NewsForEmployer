@@ -59,6 +59,10 @@ public class Type {
         this.type_color = type_color;
     }
 
+    public void setNews(Set<Type> news) {
+        this.news = news;
+    }
+
     @Override
     public String toString() {
         return "Type{" +
