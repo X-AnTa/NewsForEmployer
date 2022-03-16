@@ -13,7 +13,7 @@ public class Type {
     private int id;
 
     @Column(name = "type_name")
-    private String type_name;
+    private String name;
 
     @Column(name = "type_color")
     private String type_color;
@@ -31,7 +31,7 @@ public class Type {
     }
 
     public Type(String type_name, String type_color) {
-        this.type_name = type_name;
+        this.name = type_name;
         this.type_color = type_color;
     }
 
@@ -44,11 +44,11 @@ public class Type {
     }
 
     public String getType_name() {
-        return type_name;
+        return name;
     }
 
     public void setType_name(String type_name) {
-        this.type_name = type_name;
+        this.name = type_name;
     }
 
     public String getType_color() {
@@ -67,7 +67,7 @@ public class Type {
     public String toString() {
         return "Type{" +
                 "id=" + id +
-                ", type_name='" + type_name + '\'' +
+                ", type_name='" + name + '\'' +
                 ", type_color='" + type_color + '\'' +
                 '}';
     }

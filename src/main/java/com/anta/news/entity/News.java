@@ -23,7 +23,7 @@ public class News {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "news_types",
             joinColumns = @JoinColumn(name = "news_id"),
