@@ -2,22 +2,28 @@ package com.anta.news.controller;
 
 import com.anta.news.entity.News;
 import com.anta.news.service.NewsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
+@Tag(name = "News", description = "CRUD news")
 @RestController
 @RequestMapping("/newsline")
-public class RESTController {
+public class NewsController {
 
-    @Resource
-    private NewsService newsService;
+    private final NewsService newsService;
+
+    @Autowired
+    public NewsController(NewsService newsService) {
+        this.newsService = newsService;
+    }
 
     @GetMapping("/news")
-    public ResponseEntity<List<News>> getAllNews(){
+    public ResponseEntity<List<News>> getAllNews() {
         return new ResponseEntity<>(newsService.getAllNews(), HttpStatus.OK);
     }
 
@@ -28,19 +34,19 @@ public class RESTController {
     }
 
     @PostMapping("/news")
-    public ResponseEntity<News> addProduct(@RequestBody News news) {
+    public ResponseEntity<News> addNews(@RequestBody News news) {
         News newNews = newsService.addNews(news);
         return new ResponseEntity<>(newNews, HttpStatus.CREATED);
     }
 
     @PutMapping("/news/{id}")
-    public ResponseEntity<News> updateProduct(@PathVariable int id, @RequestBody News news) {
+    public ResponseEntity<News> updateNews(@PathVariable int id, @RequestBody News news) {
         News updatedNews = newsService.updateNews(id, news);
         return new ResponseEntity<>(updatedNews, HttpStatus.OK);
     }
 
     @DeleteMapping("/news/{id}")
-    public ResponseEntity<Boolean> deleteProduct(@PathVariable int id) {
+    public ResponseEntity<Boolean> deleteNews(@PathVariable int id) {
         Boolean delete = newsService.deleteNews(id);
         return new ResponseEntity<>(delete, HttpStatus.OK);
     }

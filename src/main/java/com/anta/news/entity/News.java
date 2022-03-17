@@ -2,7 +2,6 @@ package com.anta.news.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 @Entity
 @Table(name = "news")
@@ -23,14 +22,9 @@ public class News {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinTable(
-            name = "news_types",
-            joinColumns = @JoinColumn(name = "news_id"),
-            inverseJoinColumns = @JoinColumn(name = "type_id")
-
-    )
-    private Set<Type> types;
+    @ManyToOne
+    @JoinColumn(name = "type_id", nullable = false)
+    private Type type;
 
     public News() {
     }
@@ -43,10 +37,6 @@ public class News {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -73,21 +63,16 @@ public class News {
         this.description = description;
     }
 
-    public Set<Type> getTypes() {
-        return types;
+    public Type getType() {
+        return type;
     }
 
-    public void setTypes(Set<Type> types) {
-        this.types = types;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
-        return "News{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", short_description='" + short_description + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "News{" + "id=" + id + ", name='" + name + '\'' + ", short_description='" + short_description + '\'' + ", description='" + description + '\'' + '}';
     }
 }

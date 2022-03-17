@@ -1,23 +1,49 @@
 package com.anta.news.service;
 
+import com.anta.news.repository.NewsRepository;
 import com.anta.news.entity.News;
-import com.anta.news.entity.Type;
+import com.anta.news.exception_handling.NoSuchNewsException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface NewsService {
+@Service
+public class NewsService {
 
-    List<News> getAllNews();
+    private final NewsRepository newsRepository;
 
-    News getNews(int id);
+    @Autowired
+    public NewsService(NewsRepository newsRepository) {
+        this.newsRepository = newsRepository;
+    }
 
-    News addNews(News news);
+    public List<News> getAllNews() {
+        return newsRepository.findAll();
+    }
 
-    News updateNews(int id, News news);
+    public News getNews(int id) {
+        Optional<News> newsOptional = newsRepository.findById(id);
+        if (newsOptional.isPresent()) {
+            return newsOptional.get();
+        } else throw new NoSuchNewsException();
+    }
 
-    boolean deleteNews(int id);
+    public News addNews(News news) {
+        return newsRepository.save(news);
+    }
 
-    List<News> getAllByType();
+    public News updateNews(int id, News news) {
+        return newsRepository.save(news);
+    }
 
-    List<Type> getAllTypes();
+    public boolean deleteNews(int id) {
+        Optional<News> newsOptional = newsRepository.findById(id);
+
+        if (newsOptional.isPresent()) {
+            newsRepository.deleteById(id);
+            return true;
+        } else return false;
+    }
 }
