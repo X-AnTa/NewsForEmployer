@@ -60,20 +60,12 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public boolean deleteType(int id) {
-        Optional<Type> typeOptional = typeRepository.findById(id);
-
-        if (typeOptional.isPresent()){
-            typeRepository.deleteById(id);
-            return true;
-        }
-        else
-            return false;
+    public List<News> getAllByType() {
+        return null;
     }
 
     @Override
     public List<Type> getAllTypes() {
-        return typeRepository.findAll();
+        return null;
     }
-
 }

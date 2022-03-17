@@ -1,7 +1,6 @@
 package com.anta.news.controller;
 
 import com.anta.news.entity.News;
-import com.anta.news.entity.Type;
 import com.anta.news.service.NewsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,8 @@ public class RESTController {
     private NewsService newsService;
 
     @GetMapping("/news")
-    public ResponseEntity<List<News>> getAllNews() {
+    public ResponseEntity<List<News>> getAllNews(){
         return new ResponseEntity<>(newsService.getAllNews(), HttpStatus.OK);
-    }
-
-    @GetMapping("/type")
-    public ResponseEntity<List<Type>> getAllTypes() {
-        return new ResponseEntity<>(newsService.getAllTypes(), HttpStatus.OK);
     }
 
     @GetMapping("/news/{id}")
@@ -34,26 +28,20 @@ public class RESTController {
     }
 
     @PostMapping("/news")
-    public ResponseEntity<News> addNews(@RequestBody News news) {
+    public ResponseEntity<News> addProduct(@RequestBody News news) {
         News newNews = newsService.addNews(news);
         return new ResponseEntity<>(newNews, HttpStatus.CREATED);
     }
 
     @PutMapping("/news/{id}")
-    public ResponseEntity<News> updateNews(@PathVariable int id, @RequestBody News news) {
+    public ResponseEntity<News> updateProduct(@PathVariable int id, @RequestBody News news) {
         News updatedNews = newsService.updateNews(id, news);
         return new ResponseEntity<>(updatedNews, HttpStatus.OK);
     }
 
     @DeleteMapping("/news/{id}")
-    public ResponseEntity<Boolean> deleteNews(@PathVariable int id) {
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable int id) {
         Boolean delete = newsService.deleteNews(id);
-        return new ResponseEntity<>(delete, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/type/{id}")
-    public ResponseEntity<Boolean> deleteType(@PathVariable int id) {
-        Boolean delete = newsService.deleteType(id);
         return new ResponseEntity<>(delete, HttpStatus.OK);
     }
 }

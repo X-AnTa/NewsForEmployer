@@ -17,7 +17,7 @@ public interface NewsService {
 
     boolean deleteNews(int id);
 
-    boolean deleteType(int id);
+    List<News> getAllByType();
 
     List<Type> getAllTypes();
 }
